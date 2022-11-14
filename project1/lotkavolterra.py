@@ -47,3 +47,13 @@ class LotkaVolterra:
                     self._c*u[0]*u[1] - self._d*u[1]
                 ])
         return f
+
+    def get_H(self) -> Callable[[npt.NDArray], npt.NDArray]:
+        """Returns the function H(x,y) which is an invariant of the solution to
+        the problem.
+        """
+        def H(x: float, y: float) -> float:
+            return (
+                self._c*x + self._b*y - self._d*np.log(x) - self._a*np.log(y)
+            )
+        return np.vectorize(H)

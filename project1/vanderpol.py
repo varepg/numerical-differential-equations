@@ -22,11 +22,11 @@ class VanDerPol:
         """Returns the initial values as a 1d array."""
         return self._u0
 
-    def get_f(self):
+    def get_f(self) -> Callable[[float, npt.NDArray], npt.NDArray]:
         """Returns a function f such that the van der Pol problem
         can be expressed as y'=f(t, y).
         """
-        def f(_, u: npt.NDArray):
+        def f(_, u: npt.NDArray) -> npt.NDArray:
             """The function f in y'=f(t, y) for the van der Pol problem.
             
             Parameters:

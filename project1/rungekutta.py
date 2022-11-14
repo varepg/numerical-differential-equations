@@ -4,8 +4,12 @@ import numpy.typing as npt
 from typing import Callable, Tuple
 
 
-def RK4step(f: Callable[[float, npt.NDArray], npt.NDArray], t_old: float,
-            u_old: npt.NDArray, h: float) -> npt.NDArray:
+def RK4step(
+        f: Callable[[float, npt.NDArray], npt.NDArray],
+        t_old: float,
+        u_old: npt.NDArray,
+        h: float
+    ) -> npt.NDArray:
 
     """Performs one step for the equation y'=f(t, y) using the RK4 schema
     
@@ -20,10 +24,11 @@ def RK4step(f: Callable[[float, npt.NDArray], npt.NDArray], t_old: float,
     return u_old + h / 6 * (dY1 + 2 * dY2 + 2 * dY3 + dY4)
 
 
-def RK4_test_solver(f: Callable[[float, npt.NDArray], npt.NDArray],
-                    true_solution:  Callable[[float], npt.NDArray],
-                    u0: npt.NDArray,
-                    t0: float, tf: float, N: int
+def RK4_test_solver(
+        f: Callable[[float, npt.NDArray], npt.NDArray],
+        true_solution:  Callable[[float], npt.NDArray],
+        u0: npt.NDArray,
+        t0: float, tf: float, N: int
     ) -> Tuple[npt.NDArray, npt.NDArray, npt.NDArray]:
 
     """Solves the equation y'=f(t, y) for a test function f for which the
@@ -52,8 +57,12 @@ def RK4_test_solver(f: Callable[[float, npt.NDArray], npt.NDArray],
     return tgrid, approx, err
 
 
-def RK34step(f: Callable[[float, npt.NDArray], npt.NDArray], t_old: float,
-            u_old: npt.NDArray, h: float) -> Tuple[npt.NDArray, npt.NDArray]:
+def RK34step(
+        f: Callable[[float, npt.NDArray], npt.NDArray],
+        t_old: float,
+        u_old: npt.NDArray,
+        h: float
+    ) -> Tuple[npt.NDArray, npt.NDArray]:
 
     """Performs one step for the equation y'=f(t, y) using the RK4 schema and
     estimates the local error using the embedded RK3.
@@ -73,8 +82,14 @@ def RK34step(f: Callable[[float, npt.NDArray], npt.NDArray], t_old: float,
     return u_new, local_err_new
 
 
-def new_step(tol: float, err: float, err_old: float, h_old: float, k: int
-                ) -> float:
+def new_step(
+        tol: float,
+        err: float,
+        err_old: float,
+        h_old: float,
+        k: int
+    ) -> float:
+
     """Calculates the next step size for the adaptive RK34 solver using the
     previous one, keeping a constant error tolerance.
 
@@ -86,9 +101,13 @@ def new_step(tol: float, err: float, err_old: float, h_old: float, k: int
         * (tol / err_old) ** (-1 / (3 * k)) * h_old
     )
 
-def adaptive_RK34(f: Callable[[float, npt.NDArray], npt.NDArray], t0: float,
-                 tf: float, y0: npt.NDArray, tol: float
-                 ) -> Tuple[npt.NDArray, npt.NDArray]:
+def adaptive_RK34(
+        f: Callable[[float, npt.NDArray], npt.NDArray],
+        t0: float,
+        tf: float,
+        y0: npt.NDArray,
+        tol: float
+    ) -> Tuple[npt.NDArray, npt.NDArray]:
 
     """Solves the equation y'=f(t, y) using an adaptive RK34 scheme.
     

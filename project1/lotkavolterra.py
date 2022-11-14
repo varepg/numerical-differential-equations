@@ -48,7 +48,7 @@ class LotkaVolterra:
                 ])
         return f
 
-    def get_H(self) -> Callable[[npt.NDArray], npt.NDArray]:
+    def get_H(self) -> Callable[[npt.NDArray, npt.NDArray], npt.NDArray]:
         """Returns the function H(x,y) which is an invariant of the solution to
         the problem.
         """

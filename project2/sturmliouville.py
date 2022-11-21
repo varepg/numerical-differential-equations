@@ -22,11 +22,13 @@ def SL_solve(L: int, N: int, k: int = 3):
     x = np.linspace(0, L, N+1)
 
     diags = [[-2]*N, [1]*(N-1), [1]*(N-1)]
-    D2 = 1/(dx**2) * sparse.diags(diags, [0, -1, 1])
+    D2 = sparse.diags(diags, [0, -1, 1])
     D2 = D2.tocsr()
 
     # modifying for Neumann condition at x = L
     D2[-1,-2] = 2
+    
+    D2 *= 1/(dx**2)
     w, v = sparse.linalg.eigs(D2, k=k, which="SM")
 
     ## sort by increasing size of absolute value of eigenvalue

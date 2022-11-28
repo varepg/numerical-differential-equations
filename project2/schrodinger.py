@@ -58,15 +58,17 @@ class TISE:
             prob: NDArray,
             *,
             psi_savepath: str = "",
-            prob_savepath: str = ""
+            prob_savepath: str = "",
+            scale_psi: float = 100,
+            scale_prob: float = 1000
         ) -> None:
 
         fig1, ax1 = plt.subplots()
         fig2, ax2 = plt.subplots()
 
         # rescaling for vizualisation
-        psi *= 100
-        prob *= 1000
+        psi *= scale_psi
+        prob *= scale_prob
 
         for i, e in np.ndenumerate(E):
 

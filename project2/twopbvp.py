@@ -30,6 +30,7 @@ def two_p_BVP(
 
     diagonals = [[-2]*N, [1]*(N-1), [1]*(N-1)]
     D2 = 1/(dx**2) * sparse.diags(diagonals, [0, -1, 1])
+    D2 = D2.tocsr()
 
     f_comp[0] += -alpha / (dx**2)
     f_comp[-1] += -beta / (dx**2)

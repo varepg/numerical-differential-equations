@@ -26,7 +26,7 @@ class TISE:
         Vdiag = sparse.diags(V(x_comp), 0)
 
         diags = [[-2]*N, [1]*(N-1), [1]*(N-1)]
-        H = -1/(dx**2) * sparse.diags(diags, [0, -1, 1]) - Vdiag
+        H = -1/(dx**2) * sparse.diags(diags, [0, -1, 1]) + Vdiag
         H = H.tocsr()
 
         E, psi = sparse.linalg.eigs(H, k=k, which="SM")

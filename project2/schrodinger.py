@@ -9,6 +9,15 @@ import matplotlib.pyplot as plt
 
 
 class TISE:
+    """Represents the time independant Schrödinger equation (TISE)
+
+            psi'' - V(x)*psi = -E * psi.
+    
+    Parameters:
+    - V(x): one-dimensional potential.
+    - L: end point of the interval, which starts at 0.
+    """
+
     def __init__(self, V: Callable, L: float):
         self.V = V
         self.L = L
@@ -18,7 +27,15 @@ class TISE:
             N: int,
             k: int = 6
         ) -> Tuple[NDArray, NDArray, NDArray, NDArray]:
+        """Solves the TISE using a 2pBVP solver.
 
+        Parameters:
+        - N: number of inner grid points.
+        - k: number of eigenvalues and eigenvectors to return. 
+
+        Returns: the spatial grid x, k normalized eigenvectors psi_normed,
+        the corresponding eigenvalues E and the probability densities prob.
+        """
         dx = self.L / (N+1)
         x_comp = np.linspace(dx, self.L-dx, N)
 
@@ -44,6 +61,13 @@ class TISE:
 
     @staticmethod
     def _normalize_columns(A: NDArray) -> NDArray:
+        """Normalizes the columns in A according to the euclidean norm. 
+
+        Parameters:
+        A: a matrix.
+
+        Returns: a matrix with normalized columns. 
+        """
         norms = np.apply_along_axis(linalg.norm, 0, A)
 
         # norm = 0 not handled as eigenvectors are non-zero
@@ -60,8 +84,22 @@ class TISE:
             psi_savepath: str = "",
             prob_savepath: str = "",
             scale_psi: float = 100,
-            scale_prob: float = 1000
-        ) -> None:
+            scale_prob: float = 1000,
+            title: str = ""
+        ) -> Tuple[plt.Axes, plt.Figure, plt.Axes, plt.Figure]:
+        """Scales and plots the eigenvectors and probabilities at their respective energy levels. 
+
+        Parameters:
+        x: spatial grid.
+        psi: TISE eigenvectors.
+        E: corresponding eigenvalues.
+        prob: corresponding probbility densities.
+        psi_savepath: saves the psi-plot to path. Default: does not save.
+        prob_savepath: saves the prob-plot to path. Default: does not save.
+        scale_psi: scales psi by a factor of scale_psi. Default: 100.
+        scale_prob: scales prob by a factor of scale_prob. Default: 1000.
+        title: adds a title to the plots. Default: no title.
+        """
 
         fig1, ax1 = plt.subplots()
         fig2, ax2 = plt.subplots()
@@ -86,9 +124,14 @@ class TISE:
         ax1.set_ylabel("Wavefunction, Energy")
         ax2.set_xlabel("x")
         ax2.set_ylabel("Probability, Energy")
+        if title:
+            ax1.set_title(title)
+            ax2.set_title(title)
         plt.show()
 
         if psi_savepath:
             fig1.savefig(psi_savepath)
         if prob_savepath:
             fig2.savefig(prob_savepath)
+        return fig1, ax1, fig2, ax2
+        

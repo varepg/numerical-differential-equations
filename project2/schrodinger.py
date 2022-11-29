@@ -14,7 +14,7 @@ class TISE:
             psi'' - V(x)*psi = -E * psi.
     
     Parameters:
-    - V(x): one-dimensional potential.
+    - V: one-dimensional potential.
     - L: end point of the interval, which starts at 0.
     """
 
@@ -27,7 +27,7 @@ class TISE:
             N: int,
             k: int = 6
         ) -> Tuple[NDArray, NDArray, NDArray, NDArray]:
-        """Solves the TISE using a 2pBVP solver.
+        """Solves the TISE.
 
         Parameters:
         - N: number of inner grid points.
@@ -64,7 +64,7 @@ class TISE:
         """Normalizes the columns in A according to the euclidean norm. 
 
         Parameters:
-        A: a matrix.
+        - A: a matrix.
 
         Returns: a matrix with normalized columns. 
         """
@@ -90,15 +90,15 @@ class TISE:
         """Scales and plots the eigenvectors and probabilities at their respective energy levels. 
 
         Parameters:
-        x: spatial grid.
-        psi: TISE eigenvectors.
-        E: corresponding eigenvalues.
-        prob: corresponding probbility densities.
-        psi_savepath: saves the psi-plot to path. Default: does not save.
-        prob_savepath: saves the prob-plot to path. Default: does not save.
-        scale_psi: scales psi by a factor of scale_psi. Default: 100.
-        scale_prob: scales prob by a factor of scale_prob. Default: 1000.
-        title: adds a title to the plots. Default: no title.
+        - x: spatial grid.
+        - psi: TISE eigenvectors.
+        - E: corresponding eigenvalues.
+        - prob: corresponding probbility densities.
+        - psi_savepath: saves the psi-plot to path. Default: does not save.
+        - prob_savepath: saves the prob-plot to path. Default: does not save.
+        - scale_psi: scales psi by a factor of scale_psi. Default: 100.
+        - scale_prob: scales prob by a factor of scale_prob. Default: 1000.
+        - title: adds a title to the plots. Default: no title.
         """
 
         fig1, ax1 = plt.subplots()
@@ -134,4 +134,3 @@ class TISE:
         if prob_savepath:
             fig2.savefig(prob_savepath)
         return fig1, ax1, fig2, ax2
-        

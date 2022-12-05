@@ -18,7 +18,7 @@ def SL_solve(L: int, N: int, k: int = 3):
     such that v[:,i] is the vector corresponding to the value w[i].
     """
 
-    dx = L / (N)
+    dx = L / N
     x = np.linspace(0, L, N+1)
 
     diags = [[-2]*N, [1]*(N-1), [1]*(N-1)]

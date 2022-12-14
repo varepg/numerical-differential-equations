@@ -37,7 +37,7 @@ def solve_diffusion(
     - t_end: final time.
     - g: function describing the initial conditions, u(t=0,x)=g(x).
     - method: can either be 'explicit' or 'implicit'. Specifies if an explicit
-      an or implicit solver should be used. Default: 'explicit'.
+      or implicit solver should be used. Default: 'explicit'.
     
     Returns:
     - tgrid: the time grid.

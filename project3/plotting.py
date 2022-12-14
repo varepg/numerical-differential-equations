@@ -4,6 +4,7 @@ from mpl_toolkits.mplot3d import axes3d
 from diffusion import solve_diffusion
 from laxwen import get_nbr_timesteps, get_stepsizes, laxwen_stepper
 from convdiv import convdiv_stepper
+from burger import burger_stepper
 
 
 def task12():
@@ -102,5 +103,25 @@ def task313():
     plt.show()
 
 
+def task41():
+    A = 2
+    g = lambda x: A*np.exp(-100*(x-0.5)**2)
+    N = 300
+    xgrid = np.linspace(0,1,N)
+    d = 0.005
+    M = 1000
+    u0 = g(xgrid)
+    u, tgrid = burger_stepper(u0, d, M)
+
+    T, X = np.meshgrid(tgrid, xgrid)
+    fig = plt.figure()
+    ax = fig.add_subplot(projection='3d')
+    ax.plot_wireframe(T, X, u)
+    ax.set_xlabel("t")
+    ax.set_ylabel("x")
+    ax.set_title(f"A={A}, d={d}")
+    plt.show()
+
+
 if __name__ == "__main__":
-    task313()
+    task41()

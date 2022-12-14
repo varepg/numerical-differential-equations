@@ -58,8 +58,8 @@ def get_stepsizes(a: float, amu: float, N: float) -> Tuple[float, float]:
     dt: size of timestep.
     dx: size of spatial step
     """
-    dt = amu * dx/a
     dx = 1 / N
+    dt = amu * dx/a
 
     return dt, dx
 

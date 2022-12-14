@@ -63,5 +63,44 @@ def task31():
     plt.show()
 
 
+def task312():
+    g = lambda x: 1 if np.abs(x-0.3)<0.1 else 0
+    g = np.vectorize(g)
+    N = 100
+    xgrid = np.linspace(0,1,N)
+    a = 1
+    d = 0.1
+    M = 100
+    u0 = g(xgrid)
+    u, tgrid = convdiv_stepper(u0, a, d, M)
+
+    T, X = np.meshgrid(tgrid, xgrid)
+    fig = plt.figure()
+    ax = fig.add_subplot(projection='3d')
+    ax.plot_wireframe(T, X, u)#, rstride=1, cstride=1, cmap="viridis", edgecolor="none")
+    ax.set_xlabel("t")
+    ax.set_ylabel("x")
+    plt.show()
+
+
+def task313():
+    g = lambda x: np.exp(-100*(x-0.5)**2)
+    N = 100
+    xgrid = np.linspace(0,1,N)
+    a = -10
+    d = 0.1
+    M = 100
+    u0 = g(xgrid)
+    u, tgrid = convdiv_stepper(u0, a, d, M)
+
+    T, X = np.meshgrid(tgrid, xgrid)
+    fig = plt.figure()
+    ax = fig.add_subplot(projection='3d')
+    ax.plot_surface(T, X, u, rstride=1, cstride=1, cmap="viridis", edgecolor="none")
+    ax.set_xlabel("t")
+    ax.set_ylabel("x")
+    plt.show()
+
+
 if __name__ == "__main__":
-    task31()
+    task313()
